@@ -1,0 +1,33 @@
+{
+  "name": "organique",
+  "version": "0.1.0",
+  "description": "🧬​ Organique is a university project built while studying Bioinformatics. The idea is to gather algorithms and techniques often used in Bioinformatics under a common open source library written in Node.js",
+  "license": "MIT",
+  "author": "matmont <matteo.montalbetti3@gmail.com> (https://mmont.dev/)",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "scripts": {
+    "dev": "tsdown --watch",
+    "test": "tsx --test \"src/**/*.test.ts\""
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "tsdown": "^0.17.0-beta.6",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  },
+  "keywords": [
+    "bioinformatics",
+    "dna",
+    "rna",
+    "protein",
+    "sequencing",
+    "translation",
+    "transcription",
+    "node",
+    "javascript"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
