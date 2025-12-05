@@ -114,6 +114,7 @@ npm test
 - Codon usage tables
 - Alignment utilities
 - Additional genetic codes (mitochondrial, bacterial, etc.)
+- Restriction Enzymes patterns
 
 ## Contributing
 
