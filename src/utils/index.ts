@@ -3,3 +3,4 @@ export {
   forEachSubstring,
   sanitizeString,
 } from "./string";
+export { computeLpsArray, findOccurrences } from "./pattern";
