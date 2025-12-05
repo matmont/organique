@@ -3,8 +3,8 @@ import { sanitizeString } from "../utils/string";
 
 /**
  * Transcribe a new RNA from a DNA strand.
- * If the sense strand is provided, the transcription is just a replacement of T bases with U.
- * If the anti-sense strand is provided, the transcription will be performed in reverse direction, given that the transcription process is always held in sense direction.
+ * If the sense strand (coding strand) is provided, the transcription is just a replacement of T bases with U.
+ * If the anti-sense (template strand) strand is provided, the transcription will be performed in reverse direction, given that the transcription process is always held in sense direction.
  * @param dnaSequence the DNA strand from which transcribe
  * @param strandType the direction of the DNA strand provided
  * @returns the transcribed RNA as a sequence of character
@@ -12,11 +12,11 @@ import { sanitizeString } from "../utils/string";
  */
 export function transcribeFromDna(
   dnaSequence: string,
-  strandType: "sense" | "anti-sense"
+  strandType: "coding" | "template" = "coding"
 ): string {
   assertValidDna(dnaSequence);
 
-  if (strandType === "sense") {
+  if (strandType === "coding") {
     return sanitizeString(dnaSequence).replace("T", "U");
   }
 

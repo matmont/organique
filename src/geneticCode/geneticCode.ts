@@ -1,4 +1,4 @@
-import { Aminoacids } from "./ammino";
+import { Aminoacids } from "../protein/ammino";
 
 export const StopCodon = "_";
 
@@ -6,6 +6,7 @@ export type GeneticCode = {
   code: Record<string, Aminoacids>;
   startCodon: string;
   stopCodon: string[];
+  intronRegex: RegExp;
 };
 
 export const HUMAN_GENETIC_CODE: GeneticCode = {
@@ -97,4 +98,5 @@ export const HUMAN_GENETIC_CODE: GeneticCode = {
   },
   startCodon: "ATG",
   stopCodon: ["TAA", "TAG", "TGA"],
+  intronRegex: /GT.{1, 10}TACTAAC.{1, 10}AC/g,
 };

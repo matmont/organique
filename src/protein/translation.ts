@@ -2,7 +2,11 @@ import { computeReadingFrames } from "../dna/processing";
 import { assertValidDna } from "../dna/validation";
 import { sanitizeString } from "../utils/string";
 import { Aminoacids } from "./ammino";
-import { GeneticCode, HUMAN_GENETIC_CODE, StopCodon } from "./geneticCode";
+import {
+  GeneticCode,
+  HUMAN_GENETIC_CODE,
+  StopCodon,
+} from "../geneticCode/geneticCode";
 
 export function translateCodon(
   codon: string,

@@ -1,3 +1,4 @@
+import { GeneticCode, HUMAN_GENETIC_CODE } from "../protein";
 import { sanitizeString } from "../utils/string";
 import { assertValidDna } from "./validation";
 
@@ -41,4 +42,18 @@ export function computeReadingFrames(strand: string) {
   readingFrames.push(reverseComplement.slice(2));
 
   return readingFrames;
+}
+
+/**
+ * Compute all the introns substrings starting indices
+ */
+export function findIntrons(
+  strand: string,
+  geneticCode: GeneticCode = HUMAN_GENETIC_CODE
+): number[] {
+  assertValidDna(strand);
+  const sanitizedDna = sanitizeString(strand);
+  return [...sanitizedDna.matchAll(geneticCode.intronRegex)].map(
+    (m) => m.index
+  );
 }

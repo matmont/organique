@@ -5,6 +5,7 @@
  * @returns a sanitized string
  */
 export function sanitizeString(input: string): string {
+  if (!input?.length) return "";
   return input.trim().toUpperCase();
 }
 

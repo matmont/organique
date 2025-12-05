@@ -1,7 +1,7 @@
 import { assertValidDna } from "../dna/validation";
 import { sanitizeString } from "../utils/string";
 import { Aminoacids } from "./ammino";
-import { HUMAN_GENETIC_CODE } from "./geneticCode";
+import { HUMAN_GENETIC_CODE } from "../geneticCode/geneticCode";
 import { translateCodon } from "./translation";
 
 export function computeCodonUsage(

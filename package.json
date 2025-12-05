@@ -6,6 +6,11 @@
   "author": "matmont <matteo.montalbetti3@gmail.com> (https://mmont.dev/)",
   "type": "module",
   "main": "./dist/index.mjs",
+  "files": [
+    "dist/",
+    "bin/"
+  ],
+  "bin": "./bin/cli.mjs",
   "scripts": {
     "dev": "tsdown --watch",
     "test": "tsx --test \"src/**/*.test.ts\""
@@ -29,5 +34,8 @@
   ],
   "engines": {
     "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "commander": "^14.0.2"
   }
 }
