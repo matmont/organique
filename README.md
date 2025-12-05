@@ -25,6 +25,7 @@ researchers.
   - Knuth-Morris-Pratt Algorithm implementation (prefer native `RegExp` when possible)
 - TypeScript-first API
 - Works with Node 20+ (ESM)
+- CLI application (`npx organique -h`) exposing some useful one-shot functions (e.g., DNA stats)
 
 ## Installation
 
