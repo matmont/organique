@@ -1,4 +1,4 @@
-import { GeneticCode, HUMAN_GENETIC_CODE } from "../protein";
+import { GeneticCode, HUMAN_GENETIC_CODE } from "../geneticCode";
 import { sanitizeString } from "../utils/string";
 import { assertValidDna } from "./validation";
 

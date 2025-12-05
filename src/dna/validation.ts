@@ -1,4 +1,3 @@
-import { sanitizeString } from "../utils/string";
 import { throwInvalidDnaError } from "./errors";
 
 /**
@@ -7,10 +6,7 @@ import { throwInvalidDnaError } from "./errors";
  * @returns true if the string is a valid DNA sequence, false otherwise
  */
 export function assertValidDna(seq: string) {
-  const validNucleotides = new Set(["A", "T", "C", "G"]);
-  for (const char of sanitizeString(seq)) {
-    if (!validNucleotides.has(char.toUpperCase())) {
-      throwInvalidDnaError();
-    }
+  if (seq.match(/[ACTGactg]+/g) === null) {
+    throwInvalidDnaError();
   }
 }

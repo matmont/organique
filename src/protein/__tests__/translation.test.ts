@@ -8,7 +8,7 @@ import {
   translateDnaSequence,
   retrieveProteinsFromAllDnaReadingFrames,
 } from "../translation.ts";
-import { HUMAN_GENETIC_CODE, StopCodon } from "../geneticCode.ts";
+import { HUMAN_GENETIC_CODE, StopCodon } from "../../geneticCode";
 import { Aminoacids } from "../ammino.ts";
 
 const buildDnaFromAminoChain = (
