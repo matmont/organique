@@ -12,8 +12,9 @@
   ],
   "bin": "./bin/cli.mjs",
   "scripts": {
-    "dev": "tsdown --watch",
-    "test": "tsx --test \"src/**/*.test.ts\""
+    "dev": "tsdown --config tsdown.config.ts --watch",
+    "test": "tsx --test \"src/**/*.test.ts\"",
+    "prepublishOnly": "tsdown --config tsdown.config.prod.ts"
   },
   "devDependencies": {
     "@types/node": "^24.10.1",
