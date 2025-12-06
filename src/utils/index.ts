@@ -4,4 +4,6 @@ export {
   sanitizeString,
 } from "./string";
 export { computeLpsArray, findOccurrences } from "./pattern";
-export { generateDotPlot } from "./similarity";
+export { generateDotPlot, readSubstitutionMatrix } from "./similarity";
+export type { ISubstitutionMatrix } from "./similarity";
+export { getCurrentDir } from "./file";
