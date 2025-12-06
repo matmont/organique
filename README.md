@@ -115,6 +115,7 @@ npm test
 - Alignment utilities
 - Additional genetic codes (mitochondrial, bacterial, etc.)
 - Restriction Enzymes patterns
+- Expose functions and services as a REST API web server
 
 ## Contributing
 
