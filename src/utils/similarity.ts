@@ -52,7 +52,7 @@ export async function generateDotPlot(
  * @returns the substitution matrix with its own legend to help indexing it correctly
  */
 export async function readSubstitutionMatrix(
-  matrixName: "BLOSUM50" | "BLOSUM65"
+  matrixName: "BLOSUM50" | "BLOSUM62" | "PAM250"
 ): Promise<ISubstitutionMatrix> {
   let legend: string[] = [];
   let matrix: number[][] = [];
