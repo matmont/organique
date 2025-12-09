@@ -23,4 +23,5 @@ export enum Aminoacids {
   Tryptophan = "W",
   Tyrosine = "Y",
   StopAmino = "_",
+  GapAmino = "-",
 }

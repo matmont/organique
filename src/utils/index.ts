@@ -7,3 +7,4 @@ export { computeLpsArray, findOccurrences } from "./pattern";
 export { generateDotPlot, readSubstitutionMatrix } from "./similarity";
 export type { ISubstitutionMatrix } from "./similarity";
 export { getCurrentDir } from "./file";
+export { needlemanWunshAlgorithm, smithWatermanAlgorithm } from "./align";
