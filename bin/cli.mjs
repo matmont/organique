@@ -32,6 +32,7 @@ program
       );
       return;
     }
+    console.info(`📏​ Chain length: ${strand.length}`);
     console.info(
       `📜​ Transcription: ${rna.transcribeFromDna(strand, direction)}`
     );
