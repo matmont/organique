@@ -118,6 +118,7 @@ npm test
 - Expose functions and services as a REST API web server
 - Add more substitution matrix for sequence alignment:
   - BENNER22, BENNER6, BENNER74, BLOSUM45, BLOSUM80, BLOSUM90, DAYHOFF, FENG, GENETIC, GONNET1992, HOXD70, JOHNSON, JONES, LEVIN, MCLACHLAN, MDM78, NUC.4.4, PAM250, PAM30, PAM70, RA0, RISLER, SCHNEIDER, STR, TRANS
+- Version `/streams` of all the algorithms to handle huge on-the-fly processing
 
 ## Contributing
 
