@@ -1,2 +1,10 @@
-export type { INCBISearchOptions } from "./ncbi";
-export { scheduleRemoteSearch, pollRemoteResult } from "./remote";
+export type {
+  INCBISearchOptions,
+  INCBIResultOptions,
+  INCBIResults,
+} from "./types";
+export {
+  scheduleRemoteSearch,
+  pollRemoteResult,
+  formatBlastResult,
+} from "./remote";

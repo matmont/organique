@@ -1,5 +1,9 @@
-import { writeFile } from "fs/promises";
-import type { INCBISearchOptions, INCBIResultOptions } from "./ncbi";
+import { XMLParser } from "fast-xml-parser";
+import type {
+  INCBISearchOptions,
+  INCBIResultOptions,
+  INCBIResults,
+} from "./types";
 
 export async function scheduleRemoteSearch(options: INCBISearchOptions) {
   const URL = `https://blast.ncbi.nlm.nih.gov/Blast.cgi`;
@@ -56,4 +60,85 @@ export async function pollRemoteResult(options: INCBIResultOptions) {
   });
 
   return await res.text();
+}
+
+/**
+ * TODO: Refactor asap, unreadable :(
+ * @param rid
+ * @returns
+ */
+export async function formatBlastResult(rid: string): Promise<INCBIResults> {
+  const res = await pollRemoteResult({
+    RID: rid,
+    FORMAT_TYPE: "XML2_S",
+  });
+  const parser = new XMLParser({
+    ignoreAttributes: true,
+  });
+  const jsonObj = parser.parse(res);
+  const report = jsonObj.BlastXML2.BlastOutput2.report.Report;
+  const results = report.results.Results;
+  const hasMultipleQueries = Array.isArray(results.search);
+  const searches = hasMultipleQueries ? results.search : [results.search];
+  const records: INCBIResults["records"] = searches.map((res: any) => {
+    const rawSearch = res.Search;
+    const hasMultipleHits = Array.isArray(rawSearch.hits.Hit);
+    const rawHits = hasMultipleHits ? rawSearch.hits.Hit : [rawSearch.hits.Hit];
+
+    return {
+      hits: rawHits.map((rawHit: any) => {
+        const hasMultipleAligns = Array.isArray(rawHit.hsps);
+        const rawAlignments = hasMultipleAligns ? rawHit.hsps : [rawHit.hsps];
+        return {
+          alignments: rawAlignments.map((align: any) => {
+            const rawAlign = align.Hsp;
+            return {
+              evalue: rawAlign.evalue,
+              formattedAlignment: rawAlign.midline,
+              gaps: rawAlign.gaps,
+              identityPercentage: rawAlign.identity / rawAlign["align-len"],
+              normalizedScore: rawAlign["bit-score"],
+              queryRegion: {
+                from: rawAlign["query-from"],
+                to: rawAlign["query-to"],
+              },
+              querySubsequence: rawAlign.qseq,
+              targetSubsequence: rawAlign.hseq,
+              score: rawAlign.score,
+              targetRegion: {
+                from: rawAlign["hit-from"],
+                to: rawAlign["hit-to"],
+              },
+            } as INCBIResults["records"][0]["hits"][0]["alignments"][0];
+          }),
+          target: {
+            accession: rawHit.description.HitDescr.accession,
+            id: rawHit.description.HitDescr.id,
+            length: rawHit.len,
+            scientificName: rawHit.description.HitDescr.sciname,
+            taxId: rawHit.description.HitDescr.taxid,
+            title: rawHit.description.HitDescr.title,
+          },
+        } as INCBIResults["records"][0]["hits"][0];
+      }),
+      query: {
+        id: rawSearch["query-id"],
+        sequenceLength: rawSearch["query-len"],
+        title: rawSearch["query-title"],
+      },
+    } as INCBIResults["records"][0];
+  });
+
+  return {
+    program: report.program,
+    version: report.version,
+    targetDatabase: report["search-target"].Target.db,
+    parameters: {
+      expectValue: report.params.Parameters.expect,
+      gapExtendCost: report.params.Parameters["gap-extend"],
+      gapOpenCost: report.params.Parameters["gap-open"],
+      substitutionMatrix: report.params.Parameters.matrix,
+    },
+    records,
+  };
 }
