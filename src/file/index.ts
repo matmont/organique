@@ -1,0 +1,1 @@
+export { readFastaFile } from "./fasta";
