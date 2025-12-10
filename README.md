@@ -23,9 +23,13 @@ researchers.
 - Protein extraction from DNA strands
 - Pattern Matching utilities
   - Knuth-Morris-Pratt Algorithm implementation (prefer native `RegExp` when possible)
+- Sequence Alignment
+  - Global alignment with Needleman-Wunsh
+  - Local alignment with Smith-Waterman
 - TypeScript-first API
 - Works with Node 20+ (ESM)
 - CLI application (`npx organique -h`) exposing some useful one-shot functions (e.g., DNA stats)
+- BLAST remote computation (NCBI servers)
 
 ## Installation
 
