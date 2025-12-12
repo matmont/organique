@@ -1,2 +1,2 @@
-export { einfo } from "./entrez";
-export type { IEntrezDbInfo } from "./types";
+export { einfo, esearch } from "./entrez";
+export type { IEntrezDbInfo, IEntrezSearchParams } from "./types";
