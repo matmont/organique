@@ -1,6 +1,7 @@
 import { readSync } from "fs";
 import { Aminoacids } from "../protein/ammino";
 import { ISubstitutionMatrix, readSubstitutionMatrix } from "./similarity";
+import { mostFrequentChar } from "./string";
 
 /**
  * Algorithm NeedlemanWunsh for global alignment of sequences.
@@ -19,7 +20,12 @@ export function needlemanWunshAlgorithm(
   substitutionMatrix: ISubstitutionMatrix,
   gapPenalty: number,
   gapSymbol: string = Aminoacids.GapAmino
-) {
+): {
+  alignedSequenceA: string;
+  alignedSequenceB: string;
+  S: number[][];
+  T: string[][];
+} {
   const n = seqA.length;
   const m = seqB.length;
   const S: number[][] = [];
@@ -97,7 +103,12 @@ export function needlemanWunshAlgorithm(
 
   recursiveFn(n, m);
 
-  return [alignedSequenceA, alignedSequenceB, S, T];
+  return {
+    alignedSequenceA,
+    alignedSequenceB,
+    S,
+    T,
+  };
 }
 
 export function smithWatermanAlgorithm(
@@ -191,4 +202,71 @@ export function smithWatermanAlgorithm(
   recursiveFn(maxValueRow, maxValueCol);
 
   return [alignedSequenceA, alignedSequenceB, S, T];
+}
+
+/**
+ * WIP: To improve and double check it
+ * @param sequences
+ * @param substitutionMatrix
+ * @param gapPenalty
+ * @param gapSymbol
+ * @returns
+ */
+export function progressiveMultiSequenceAlignment(
+  sequences: string[],
+  substitutionMatrix: ISubstitutionMatrix,
+  gapPenalty: number,
+  gapSymbol: string = Aminoacids.GapAmino
+) {
+  if (sequences.length <= 2) {
+    console.warn("At least 3 sequences must be provided for MSA. Aborting...");
+    return;
+  }
+
+  const alignedSequences: string[] = [];
+
+  const { alignedSequenceA, alignedSequenceB } = needlemanWunshAlgorithm(
+    sequences[0],
+    sequences[1],
+    substitutionMatrix,
+    gapPenalty,
+    gapSymbol
+  );
+  alignedSequences.push(alignedSequenceA, alignedSequenceB);
+
+  for (let i = 2; i < sequences.length; i++) {
+    const consensus = computeConsensus(alignedSequences, gapSymbol);
+    const { alignedSequenceB } = needlemanWunshAlgorithm(
+      consensus,
+      sequences[i],
+      substitutionMatrix,
+      gapPenalty,
+      gapSymbol
+    );
+    alignedSequences.push(alignedSequenceB);
+  }
+
+  return alignedSequences;
+}
+
+function computeConsensus(
+  sequences: string[],
+  gapSymbol: string = Aminoacids.GapAmino
+) {
+  const occurrencesByColumns = sequences.reduce<Record<number, string>>(
+    (acc, seq) => {
+      [...seq].forEach((item, colIdx) => {
+        if (item === gapSymbol) return;
+        if (acc[colIdx] == null) acc[colIdx] = item;
+        else acc[colIdx] += item;
+      });
+      return acc;
+    },
+    {}
+  );
+
+  return Object.entries(occurrencesByColumns).reduce(
+    (acc, value) => (acc += mostFrequentChar(value[1])[0]),
+    ""
+  );
 }

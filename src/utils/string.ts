@@ -55,3 +55,14 @@ export function forEachSubstring(
     i += subLength;
   }
 }
+
+export function mostFrequentChar(str: string) {
+  const charFrequencies = [...str].reduce<Record<string, number>>((acc, ch) => {
+    acc[ch] = (acc[ch] ?? 0) + 1;
+    return acc;
+  }, {});
+
+  return Object.entries(charFrequencies).reduce((a, b) =>
+    b[1] > a[1] ? b : a
+  );
+}
