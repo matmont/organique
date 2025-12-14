@@ -13,3 +13,4 @@ export {
   smithWatermanAlgorithm,
   progressiveMultiSequenceAlignment,
 } from "./align";
+export { NodeTree } from "./tree";
