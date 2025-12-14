@@ -26,7 +26,6 @@ export function HierarchicalAgglomerativeClustering(
   }
   const _distanceMatrix = distanceMatrix.copyMatrix();
   for (let i = _distanceMatrix.rows - 1; i > 0; i--) {
-    _distanceMatrix.printMatrix();
     const { col, row } = _distanceMatrix.getMinPosition();
     const cluster = new NodeTree<string>(
       `Dist${_distanceMatrix.getValue(row, col)! / 2}`,
@@ -68,7 +67,7 @@ export function HierarchicalAgglomerativeClustering(
     _distanceMatrix.removeColumn(col);
     _distanceMatrix.removeRow(col);
     _distanceMatrix.addRow(newClusterRow);
-    _distanceMatrix.addColumn(1000); // placeholder for new cluster
+    _distanceMatrix.addColumn(Infinity); // placeholder for new cluster
 
     if (row < col) {
       fringe.splice(col, 1);
@@ -78,9 +77,6 @@ export function HierarchicalAgglomerativeClustering(
       fringe.splice(col, 1);
     }
     fringe.push(cluster);
-
-    console.log();
-    console.log();
   }
 
   throw new Error("Clustering failed");

@@ -57,4 +57,20 @@ export class NodeTree<K extends Object> {
       this.subRight.#printRecursive(level + 1, "[R] ");
     }
   }
+
+  toNewick(): string {
+    // TODO: implement this method to convert the tree to Newick format
+    // we need to better define how to represent the node values in Newick -> probably add ID and HEIGHT fields at the node level
+    throw new Error("Method not implemented.");
+
+    // const recursiveDef = (node: NodeTree<K>): string => {
+    //   if (node.subLeft === null && node.subRight === null) {
+    //     return node.#formatValue();
+    //   }
+    //   const leftNewick = node.subLeft ? recursiveDef(node.subLeft) : "";
+    //   const rightNewick = node.subRight ? recursiveDef(node.subRight) : "";
+    //   return `(${leftNewick},${rightNewick})${node.#formatValue()}`;
+    // };
+    // return recursiveDef(this) + ";";
+  }
 }
