@@ -20,6 +20,24 @@ export class NodeTree<K extends Object> {
     this.#printRecursive();
   }
 
+  retrieveTerminalNodes() {
+    const recursiveDef = (node: NodeTree<K>) => {
+      if (node.subLeft === null && node.subRight === null) {
+        return [node];
+      }
+      let terminals: NodeTree<K>[] = [];
+      if (node.subLeft) {
+        terminals = terminals.concat(recursiveDef(node.subLeft));
+      }
+      if (node.subRight) {
+        terminals = terminals.concat(recursiveDef(node.subRight));
+      }
+      return terminals;
+    };
+
+    return recursiveDef(this);
+  }
+
   #formatValue(): string {
     if (this.valueFormatter && this.value !== null) {
       return this.valueFormatter(this.value);

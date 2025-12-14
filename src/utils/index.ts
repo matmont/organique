@@ -14,3 +14,4 @@ export {
   progressiveMultiSequenceAlignment,
 } from "./align";
 export { NodeTree } from "./tree";
+export { Matrix } from "./matrix";
