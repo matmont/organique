@@ -1,5 +1,7 @@
 # 🧬 organique
 
+⚠️​ Still under heavy development!
+
 A modern, lightweight bioinformatics toolkit for Node.js --- designed as
 an alternative to [BioPython](https://biopython.org/) for the JavaScript ecosystem.
 
@@ -30,8 +32,13 @@ researchers.
 - Works with Node 20+ (ESM)
 - CLI application (`npx organique -h`) exposing some useful one-shot functions (e.g., DNA stats)
 - BLAST remote computation (NCBI servers)
+- Phylogenetic Analysis
+  - Tree, Matrices and Phylogenetic Trees user-friendly logs
+  - UPGMA algorithm implementation
 
 ## Installation
+
+⚠️​ Not yet available to the public
 
 ```sh
 npm install organique
