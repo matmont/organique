@@ -6,3 +6,4 @@ export * as blast from "./blast";
 export * as file from "./file";
 export * as entrez from "./entrez";
 export * as clustering from "./clustering";
+export * as phylo from "./phylo";
